@@ -5,6 +5,8 @@ import { ApplicationStatus, JobApplication, ApplicationStatistics } from '@/type
 import StatusChart from '@/components/dashboard/StatusChart';
 import ApplicationTable from '@/components/dashboard/ApplicationTable';
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000';
+
 export default function Home() {
   const [applications, setApplications] = useState<JobApplication[]>([]);
   const [statistics, setStatistics] = useState<ApplicationStatistics | null>(null);
@@ -15,9 +17,10 @@ export default function Home() {
     const loadData = async () => {
       try {
         const [appsRes, statsRes] = await Promise.all([
-          fetch('http://localhost:3000/applications'),
-          fetch('http://localhost:3000/applications/stats'),
+          fetch(`${API_BASE_URL}/applications`),
+          fetch(`${API_BASE_URL}/applications/stats`),
         ]);
+
         const [apps, stats] = await Promise.all([appsRes.json(), statsRes.json()]);
         setApplications(apps);
         setStatistics(stats);
