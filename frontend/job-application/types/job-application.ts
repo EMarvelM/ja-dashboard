@@ -9,12 +9,12 @@ export interface JobApplication {
 }
 
 export interface ApplicationStatistics {
-  totalApplications: number;
-  statusCounts: {
+  totalApplication: number;
+  countsByStatus: {
     status: ApplicationStatus;
     count: number;
   }[];
-  monthlyCount: {
+  CountByMonth: {
     month: string;
     count: number;
   }[];
